@@ -48,6 +48,7 @@ jobs:
           repository: ${{ github.repository }}
           retain_days: 1
           keep_minimum_runs: 0
+          delete_workflow_pattern: 'Auto update packages v2'
         
       - name: SSH connection to Actions
         uses: mxschmitt/action-tmate@v3.13
@@ -61,18 +62,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        pakcages: [brook, hysteria, ipt2socks, microsocks, shadowsocks-rust, sing-box, trojan, trojan-go, v2ray-core, v2ray-plugin, xray-core, xray-plugin, v2ray-geoip, v2ray-geosite, dns2tcp]
+        pakcages: [hysteria, ipt2socks, microsocks, shadowsocks-rust, sing-box, v2ray-core, v2ray-plugin, xray-core, xray-plugin, v2ray-geoip, v2ray-geosite]
         include:
-          - pakcages: brook
-            folder: brook
-            version_head: PKG_VERSION:=
-            hash_head: PKG_HASH:=
-            version_line:
-            hash_line:
-            release_api_command: curl -sL "https://api.github.com/repos/txthinking/brook/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/txthinking/brook/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://codeload.github.com/txthinking/brook/tar.gz/v
-            file_name:
+          # - pakcages: brook
+          #   folder: brook
+          #   version_head: PKG_VERSION:=
+          #   hash_head: PKG_HASH:=
+          #   version_line:
+          #   hash_line:
+          #   release_api_command: curl -sL "https://api.github.com/repos/txthinking/brook/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+          #   prerelease_api_command: curl -sL "https://api.github.com/repos/txthinking/brook/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+          #   release_download_url: https://codeload.github.com/txthinking/brook/tar.gz/v
+          #   file_name:
 
           # - pakcages: chinadns-ng
           #   folder: chinadns-ng
@@ -139,38 +140,38 @@ jobs:
             release_download_url: https://codeload.github.com/SagerNet/sing-box/tar.gz/v
             file_name:
 
-          - pakcages: trojan
-            folder: trojan
-            version_head: PKG_VERSION:=
-            hash_head: PKG_HASH:=
-            version_line:
-            hash_line:
-            release_api_command: curl -sL "https://api.github.com/repos/trojan-gfw/trojan/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/trojan-gfw/trojan/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://codeload.github.com/trojan-gfw/trojan/tar.gz/v
-            file_name:
+          # - pakcages: trojan
+          #   folder: trojan
+          #   version_head: PKG_VERSION:=
+          #   hash_head: PKG_HASH:=
+          #   version_line:
+          #   hash_line:
+          #   release_api_command: curl -sL "https://api.github.com/repos/trojan-gfw/trojan/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+          #   prerelease_api_command: curl -sL "https://api.github.com/repos/trojan-gfw/trojan/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+          #   release_download_url: https://codeload.github.com/trojan-gfw/trojan/tar.gz/v
+          #   file_name:
 
-          - pakcages: trojan-go
-            folder: trojan-go
-            version_head: PKG_VERSION:=
-            hash_head: PKG_HASH:=
-            version_line:
-            hash_line:
-            release_api_command: curl -sL "https://api.github.com/repos/p4gefau1t/trojan-go/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/p4gefau1t/trojan-go/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://codeload.github.com/p4gefau1t/trojan-go/tar.gz/v
-            file_name:
+          # - pakcages: trojan-go
+          #   folder: trojan-go
+          #   version_head: PKG_VERSION:=
+          #   hash_head: PKG_HASH:=
+          #   version_line:
+          #   hash_line:
+          #   release_api_command: curl -sL "https://api.github.com/repos/p4gefau1t/trojan-go/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+          #   prerelease_api_command: curl -sL "https://api.github.com/repos/p4gefau1t/trojan-go/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+          #   release_download_url: https://codeload.github.com/p4gefau1t/trojan-go/tar.gz/v
+          #   file_name:
 
-          - pakcages: v2ray-core
-            folder: v2ray-core
-            version_head: PKG_VERSION:=
-            hash_head: PKG_HASH:=
-            version_line:
-            hash_line:
-            release_api_command: curl -sL "https://api.github.com/repos/v2fly/v2ray-core/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/v2fly/v2ray-core/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://codeload.github.com/v2fly/v2ray-core/tar.gz/v
-            file_name:
+          # - pakcages: v2ray-core
+          #   folder: v2ray-core
+          #   version_head: PKG_VERSION:=
+          #   hash_head: PKG_HASH:=
+          #   version_line:
+          #   hash_line:
+          #   release_api_command: curl -sL "https://api.github.com/repos/v2fly/v2ray-core/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+          #   prerelease_api_command: curl -sL "https://api.github.com/repos/v2fly/v2ray-core/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+          #   release_download_url: https://codeload.github.com/v2fly/v2ray-core/tar.gz/v
+          #   file_name:
 
           - pakcages: v2ray-plugin
             folder: v2ray-plugin
@@ -211,9 +212,9 @@ jobs:
             hash_head: \  HASH:=
             version_line:
             hash_line: 21
-            release_api_command: curl -sL "https://api.github.com/repos/v2fly/geoip/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/v2fly/geoip/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://github.com/v2fly/geoip/releases/download/
+            release_api_command: curl -sL "https://api.github.com/repos/Loyalsoldier/geoip/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+            prerelease_api_command: curl -sL "https://api.github.com/repos/Loyalsoldier/geoip/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+            release_download_url: https://github.com/Loyalsoldier/geoip/releases/download/
             file_name: /geoip.dat
 
           - pakcages: v2ray-geosite
@@ -222,21 +223,21 @@ jobs:
             hash_head: \  HASH:=
             version_line:
             hash_line: 30
-            release_api_command: curl -sL "https://api.github.com/repos/v2fly/domain-list-community/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/v2fly/domain-list-community/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://github.com/v2fly/domain-list-community/releases/download/
-            file_name: /dlc.dat
+            release_api_command: curl -sL "https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+            prerelease_api_command: curl -sL "https://api.github.com/repos/Loyalsoldier/v2ray-rules-dat/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+            release_download_url: https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/
+            file_name: /geosite.dat
 
-          - pakcages: dns2tcp
-            folder: dns2tcp
-            version_head: PKG_VERSION:=
-            hash_head: PKG_HASH:=
-            version_line:
-            hash_line:
-            release_api_command: curl -sL "https://api.github.com/repos/zfl9/dns2tcp/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
-            prerelease_api_command: curl -sL "https://api.github.com/repos/zfl9/dns2tcp/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
-            release_download_url: https://codeload.github.com/zfl9/dns2tcp/tar.gz/v
-            file_name:
+          # - pakcages: dns2tcp
+          #   folder: dns2tcp
+          #   version_head: PKG_VERSION:=
+          #   hash_head: PKG_HASH:=
+          #   version_line:
+          #   hash_line:
+          #   release_api_command: curl -sL "https://api.github.com/repos/zfl9/dns2tcp/releases" | jq -r 'map(select(.prerelease|not)) | first | .tag_name' | sed -e 's/.*v//'
+          #   prerelease_api_command: curl -sL "https://api.github.com/repos/zfl9/dns2tcp/releases" | jq -r 'first | .tag_name' | sed -e 's/.*v//'
+          #   release_download_url: https://codeload.github.com/zfl9/dns2tcp/tar.gz/v
+          #   file_name:
 
     steps:
       - name: Checkout
